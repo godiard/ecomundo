@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.43"
+   sodipodi:docbase="/home/gonzalo/Proyectos/ecomundo/images"
+   sodipodi:docname="green1.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.0119683"
+     inkscape:cx="372.04724"
+     inkscape:cy="862.7128"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="851"
+     inkscape:window-height="586"
+     inkscape:window-x="0"
+     inkscape:window-y="46" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#92622e;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1307"
+       width="200"
+       height="200"
+       x="182.85715"
+       y="89.505043"
+       ry="0"
+       inkscape:export-filename="/home/gonzalo/Proyectos/ecomundo/images/green1.png"
+       inkscape:export-xdpi="9"
+       inkscape:export-ydpi="9" />
+    <path
+       style="fill:#91ec41;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 269.58525,288.47933 C 271.05518,284.37363 282.22387,265.83556 273.17972,241.75121 C 268.70633,229.83866 252.90522,207.7529 231.47614,205.53597 C 213.57175,203.91531 268.39723,198.01072 282.76498,218.98624 C 306.86326,254.16739 290.56246,280.5166 292.15698,286.89466 C 293.15213,290.87525 269.8738,288.76788 269.58525,288.47933 z "
+       id="path1309"
+       sodipodi:nodetypes="cscssc"
+       inkscape:export-filename="/home/gonzalo/Proyectos/ecomundo/images/green1.png"
+       inkscape:export-xdpi="9"
+       inkscape:export-ydpi="9" />
+  </g>
+</svg>

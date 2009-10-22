@@ -1,0 +1,9 @@
+[Activity]
+name = Ecomundo
+service_name = org.laptop.sample.Ecomundo
+icon = activity-ecomundo3
+class = ecomundoactivity.EcomundoActivity
+activity_version = 2
+host_version = 1
+show_launcher = yes
+license = GPLV2+

@@ -1,0 +1,38 @@
+# Spanish translations for PACKAGE package.
+# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Gonzalo Odiard <godiard@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-09-28 20:24-0300\n"
+"PO-Revision-Date: 2009-09-28 20:25-0300\n"
+"Last-Translator: Gonzalo Odiard <godiard@gmail.com>\n"
+"Language-Team: Spanish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: activity/activity.info:2
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:130
+msgid "Ecomundo"
+msgstr "Ecomundo"
+
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:173
+msgid "Initial Values"
+msgstr "Valores Iniciales"
+
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:178
+msgid "Green"
+msgstr "Pasto"
+
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:187
+msgid "Rabbits"
+msgstr "Conejos"
+
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:196
+msgid "Foxs"
+msgstr "Zorros"
