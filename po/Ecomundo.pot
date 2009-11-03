@@ -22,7 +22,7 @@ msgid "Ecomundo"
 msgstr ""
 
 #: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:173
-msgid "Initial Values"
+msgid "Initial quantities"
 msgstr ""
 
 #: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:178

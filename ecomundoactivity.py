@@ -17,6 +17,8 @@ import sugar
 from sugar.activity import activity
 from sugar.graphics import style
 from sugar.graphics.toolbutton import ToolButton
+from sugar.graphics.icon import Icon
+
 
 
 world = World.World()
@@ -124,6 +126,84 @@ class EcomundoActivity(activity.Activity):
         print "Init activity Ecomundo"
         #print os.path.abspath(__file__)
 
+        self.createToolbox()
+        
+        hBox = gtk.HBox(False, 0)
+        self.set_canvas(hBox)
+        
+        self.drawingarea1 = gtk.DrawingArea()
+        self.drawingarea1.set_size_request(World.SIZE_WORLD+(2*World.MARGEN),World.SIZE_WORLD+(2*World.MARGEN))
+        self.drawingarea1.show()
+
+        hBox.pack_start(self.drawingarea1, False, True, 5)
+        
+        notebook = gtk.Notebook()
+        hBox.pack_start(notebook, False, False, 5)
+        
+        # En la primera pagina del notebook pongo los datos del experimento
+        table = gtk.Table(rows=4, columns=2, homogeneous=False)
+        icon_experiment = Icon(icon_name="experiment", icon_size=gtk.ICON_SIZE_LARGE_TOOLBAR)
+        notebook.append_page(table,icon_experiment) 
+
+        label_attributes = pango.AttrList()
+        label_attributes.insert(pango.AttrSize(14000, 0, -1))
+        label_attributes.insert(pango.AttrForeground(65535, 65535, 65535, 0, -1))
+
+        lbTitle = gtk.Label(_('Initial quantities'))
+        lbTitle.set_attributes(label_attributes)
+        table.attach(lbTitle, 0, 2, 0, 1,yoptions=gtk.SHRINK,xpadding=10) 
+
+        lbGreen = gtk.Label(_('Green'))
+        lbGreen.set_attributes(label_attributes)
+        table.attach(lbGreen, 0, 1, 1, 2,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10) 
+
+        adjGreen = gtk.Adjustment(10, 1, 400, 1, 1, 0)
+        self.spbGreen = gtk.SpinButton(adjustment=adjGreen, climb_rate=1.0, digits=2)
+        table.attach(self.spbGreen, 1, 2, 1, 2,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10) 
+
+        lbRabbit = gtk.Label(_('Rabbits'))
+        lbRabbit.set_attributes(label_attributes)
+        table.attach(lbRabbit, 0, 1, 2, 3,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10)
+
+        adjRabbit = gtk.Adjustment(10, 1, 400, 1, 1, 0)
+        self.spbRabbit = gtk.SpinButton(adjustment=adjRabbit, climb_rate=1.0, digits=2)
+        table.attach(self.spbRabbit, 1, 2, 2, 3,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10)
+
+        lbFox = gtk.Label(_('Foxs'))
+        lbFox.set_attributes(label_attributes)
+        table.attach(lbFox, 0, 1, 3, 4,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10)
+        
+        adjFox = gtk.Adjustment(10, 1, 400, 1, 1, 0)
+        self.spbFox = gtk.SpinButton(adjustment=adjFox, climb_rate=1.0, digits=2)
+        table.attach(self.spbFox, 1, 2, 3, 4,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10)
+
+        # En la segunda pagina del notebook pongo los datos de los conejos
+        icon_rabbit = Icon(icon_name="rabbit", icon_size=gtk.ICON_SIZE_LARGE_TOOLBAR)
+        self.createAnimalControls(notebook,_('Rabbit features'), icon_rabbit,world.rabbit_data,label_attributes)
+
+        # En la tercera pagina del notebook pongo los datos de los zorros
+        icon_fox = Icon(icon_name="fox", icon_size=gtk.ICON_SIZE_LARGE_TOOLBAR)
+        self.createAnimalControls(notebook,_('Fox features'), icon_fox,world.fox_data,label_attributes)
+
+        # En la cuarta ponemos los parametros de clima
+        icon_rain = Icon(icon_name="rain", icon_size=gtk.ICON_SIZE_LARGE_TOOLBAR)
+        table_clima = gtk.Table(rows=4, columns=2, homogeneous=False)
+        notebook.append_page(table_clima,icon_rain) 
+
+
+        print "antes de initWorld"
+        initWorld()
+        print "antes de init Green"
+        initGreen()
+        print "antes de init Animals"
+        initAnimals()
+
+        hBox.resize_children()
+        hBox.show_all()
+
+        self.drawingarea1.connect('expose-event', self.onDrawingAreaExposed)
+
+    def createToolbox(self):
         toolbox = activity.ActivityToolbox(self)
         self.toolbar = gtk.Toolbar()
 
@@ -152,68 +232,71 @@ class EcomundoActivity(activity.Activity):
 
         toolbox.set_current_toolbar(1)
 
-        hBox = gtk.HBox(False, 0)
-        self.set_canvas(hBox)
-        
-        self.drawingarea1 = gtk.DrawingArea()
-        self.drawingarea1.set_size_request(World.SIZE_WORLD+(2*World.MARGEN),World.SIZE_WORLD+(2*World.MARGEN))
-        self.drawingarea1.show()
 
-        hBox.pack_start(self.drawingarea1, False, True, 5)
-        
+    def createAnimalControls(self,notebook,title, icon,animalData,label_attributes):
         table = gtk.Table(rows=4, columns=2, homogeneous=False)
-        hBox.pack_start(table, False, False, 5)
+        notebook.append_page(table,icon) 
 
-        label_attributes = pango.AttrList()
-        label_attributes.insert(pango.AttrSize(14000, 0, -1))
-        label_attributes.insert(pango.AttrForeground(65535, 65535, 65535, 0, -1))
-
-        lbTitle = gtk.Label()
+        lbTitle = gtk.Label(title)
         lbTitle.set_attributes(label_attributes)
-        lbTitle.set_text(_('Initial Values'))
-        #table.attach(lbTitle, 0, 1, 0, 1,yoptions=gtk.SHRINK,xpadding=5) 
         table.attach(lbTitle, 0, 2, 0, 1,yoptions=gtk.SHRINK,xpadding=10) 
 
-        lbGreen = gtk.Label()
-        lbGreen.set_attributes(label_attributes)
-        lbGreen.set_text(_('Green'))
-        table.attach(lbGreen, 0, 1, 1, 2,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10) 
+        #edadMaxima = 100
+        maxAge = gtk.Label(_('Max Age'))
+        maxAge.set_attributes(label_attributes)
+        table.attach(maxAge, 0, 1, 1, 2,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10) 
 
-        adjGreen = gtk.Adjustment(10, 1, 400, 1, 1, 0)
-        self.spbGreen = gtk.SpinButton(adjustment=adjGreen, climb_rate=1.0, digits=2)
-        table.attach(self.spbGreen, 1, 2, 1, 2,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10) 
+        adjMaxAge = gtk.Adjustment(animalData.edadMaxima, 1, 400, 1, 1, 0)
+        animalData.spbMaxAge = gtk.SpinButton(adjustment=adjMaxAge, climb_rate=1.0, digits=2)
+        table.attach(animalData.spbMaxAge, 1, 2, 1, 2,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10) 
 
-        lbRabbit = gtk.Label()
-        lbRabbit.set_attributes(label_attributes)
-        lbRabbit.set_text(_('Rabbits'))
-        table.attach(lbRabbit, 0, 1, 2, 3,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10)
+        #madurezSexual = 20
+        sexMadurity = gtk.Label(_('Sexual Maturity'))
+        sexMadurity.set_attributes(label_attributes)
+        table.attach(sexMadurity, 0, 1, 2, 3,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10) 
 
-        adjRabbit = gtk.Adjustment(10, 1, 400, 1, 1, 0)
-        self.spbRabbit = gtk.SpinButton(adjustment=adjRabbit, climb_rate=1.0, digits=2)
-        table.attach(self.spbRabbit, 1, 2, 2, 3,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10)
+        adjSexMadurity = gtk.Adjustment(animalData.madurezSexual, 1, 400, 1, 1, 0)
+        animalData.spbSexMadurity = gtk.SpinButton(adjustment=adjSexMadurity, climb_rate=1.0, digits=2)
+        table.attach(animalData.spbSexMadurity, 1, 2, 2, 3,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10) 
 
-        lbFox = gtk.Label()
-        lbFox.set_attributes(label_attributes)
-        lbFox.set_text(_('Foxs'))
-        table.attach(lbFox, 0, 1, 3, 4,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10)
+        #frecuenciaSexual = 10
+        sexFrequency = gtk.Label(_('Sexual Frequency'))
+        sexFrequency.set_attributes(label_attributes)
+        table.attach(sexFrequency, 0, 1, 3, 4,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10) 
+
+        adjSexFrequency = gtk.Adjustment(animalData.frecuenciaSexual, 1, 400, 1, 1, 0)
+        animalData.spbSexFrequency = gtk.SpinButton(adjustment=adjSexFrequency, climb_rate=1.0, digits=2)
+        table.attach(animalData.spbSexFrequency, 1, 2, 3, 4,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10) 
+
+        #nivelCadenaAlimenticia = 1
         
-        adjFox = gtk.Adjustment(10, 1, 400, 1, 1, 0)
-        self.spbFox = gtk.SpinButton(adjustment=adjFox, climb_rate=1.0, digits=2)
-        table.attach(self.spbFox, 1, 2, 3, 4,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10)
+        #minFrecuenciaAlimentacion = 10
+        minFeedFrequency = gtk.Label(_('Min Feeding Frequency'))
+        minFeedFrequency.set_attributes(label_attributes)
+        table.attach(minFeedFrequency, 0, 1, 4, 5,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10) 
 
+        adjMinFeedFrequency = gtk.Adjustment(animalData.minFrecuenciaAlimentacion, 1, 400, 1, 1, 0)
+        animalData.spbMinFeedFrequency = gtk.SpinButton(adjustment=adjMinFeedFrequency, climb_rate=1.0, digits=2)
+        table.attach(animalData.spbMinFeedFrequency, 1, 2, 4, 5,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10)       
+        
+        #maxFrecuenciaAlimentacion = 1
+        maxFeedFrequency = gtk.Label(_('Max Feeding Frequency'))
+        maxFeedFrequency.set_attributes(label_attributes)
+        table.attach(maxFeedFrequency, 0, 1, 5, 6,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10) 
 
-        print "test resize"
-        print "antes de initWorld"
-        initWorld()
-        print "antes de init Green"
-        initGreen()
-        print "antes de init Animals"
-        initAnimals()
+        adjMaxFeedFrequency = gtk.Adjustment(animalData.maxFrecuenciaAlimentacion, 1, 400, 1, 1, 0)
+        animalData.spbMaxFeedFrequency = gtk.SpinButton(adjustment=adjMaxFeedFrequency, climb_rate=1.0, digits=2)
+        table.attach(animalData.spbMaxFeedFrequency, 1, 2, 5, 6,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10) 
+        
+        #maxNumeroCrias = 5
 
-        hBox.resize_children()
-        hBox.show_all()
+        maxChidren = gtk.Label(_('Max Children'))
+        maxChidren.set_attributes(label_attributes)
+        table.attach(maxChidren, 0, 1, 6, 7,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10) 
 
-        self.drawingarea1.connect('expose-event', self.onDrawingAreaExposed)
+        adjMaxChidren = gtk.Adjustment(animalData.maxNumeroCrias, 1, 400, 1, 1, 0)
+        animalData.spbMaxChidren = gtk.SpinButton(adjustment=adjMaxChidren, climb_rate=1.0, digits=2)
+        table.attach(animalData.spbMaxChidren, 1, 2, 6, 7,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10) 
 
 
     def onDrawingAreaExposed(self,da, event):
