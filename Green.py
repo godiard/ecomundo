@@ -21,14 +21,15 @@ def getImagesGreen(world,ctx,n,p):
 	ctx.translate(x1,y1)
 	ctx.rectangle(0,0,World.SIZE_TILE,World.SIZE_TILE);
 	ctx.set_source_rgb(146.0/256.0,98.0/256.0,46.0/256.0)	
-	if state ==1:
+	if int(state) ==1:
 		ctx.set_source_surface(image1,1,1)
-	elif state ==2:
+	elif int(state) ==2:
 		ctx.set_source_surface(image2,1,1)
-	elif state ==3:
+	elif int(state) ==3:
 		ctx.set_source_surface(image3,1,1)
-	elif state ==4:
+	elif int(state) >=4:
 		ctx.set_source_surface(image4,1,1)
+		
 	ctx.fill()
 
 # MARRON RGB 146,98,46
@@ -63,10 +64,9 @@ def grow(world):
 		for p in range(0,World.CANT_TILES-1):
 			if ((world.state[n][p].STATE != 0) and 
 				(world.state[n][p].STATE < 4)):
-				world.state[n][p].STATE = world.state[n][p].STATE + 1
+				world.state[n][p].STATE = world.state[n][p].STATE + world.rain_value
 				x1 = World.MARGEN+(World.SIZE_TILE*n)
 				y1 = World.MARGEN +(World.SIZE_TILE*p)
-				#drawingarea.queue_draw_area(x1, y1, World.SIZE_TILE, World.SIZE_TILE)
 			level = 0
 			if (world.state[n][p].STATE == 0):
 				if (n != 0) and (world.state[n-1][p].STATE > 1):
@@ -90,7 +90,7 @@ def grow(world):
 					(world.state[n+1][p+1].STATE > 1 )):
 					level = level + world.state[n+1][p+1].STATE
 				if (level > 3):
-					world.state[n][p].STATE = 1
+					world.state[n][p].STATE = world.rain_value
 					x1 = World.MARGEN+(World.SIZE_TILE*n)
 					y1 = World.MARGEN +(World.SIZE_TILE*p)
-					#drawingarea.queue_draw_area(x1, y1, World.SIZE_TILE, World.SIZE_TILE)
+

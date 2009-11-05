@@ -78,7 +78,7 @@ def initGreen():
     for n in range(world.initialGreen):
         x = int(random.random()*World.CANT_TILES)
         y = int(random.random()*World.CANT_TILES)
-        world.state[x][y].STATE = 2
+        world.state[x][y].STATE = 2.0
 
 def initAnimals():
     for n in range(world.initialRabbits):
@@ -139,44 +139,15 @@ class EcomundoActivity(activity.Activity):
         
         notebook = gtk.Notebook()
         hBox.pack_start(notebook, False, False, 5)
-        
-        # En la primera pagina del notebook pongo los datos del experimento
-        table = gtk.Table(rows=4, columns=2, homogeneous=False)
-        icon_experiment = Icon(icon_name="experiment", icon_size=gtk.ICON_SIZE_LARGE_TOOLBAR)
-        notebook.append_page(table,icon_experiment) 
 
         label_attributes = pango.AttrList()
         label_attributes.insert(pango.AttrSize(14000, 0, -1))
         label_attributes.insert(pango.AttrForeground(65535, 65535, 65535, 0, -1))
-
-        lbTitle = gtk.Label(_('Initial quantities'))
-        lbTitle.set_attributes(label_attributes)
-        table.attach(lbTitle, 0, 2, 0, 1,yoptions=gtk.SHRINK,xpadding=10) 
-
-        lbGreen = gtk.Label(_('Green'))
-        lbGreen.set_attributes(label_attributes)
-        table.attach(lbGreen, 0, 1, 1, 2,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10) 
-
-        adjGreen = gtk.Adjustment(10, 1, 400, 1, 1, 0)
-        self.spbGreen = gtk.SpinButton(adjustment=adjGreen, climb_rate=1.0, digits=2)
-        table.attach(self.spbGreen, 1, 2, 1, 2,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10) 
-
-        lbRabbit = gtk.Label(_('Rabbits'))
-        lbRabbit.set_attributes(label_attributes)
-        table.attach(lbRabbit, 0, 1, 2, 3,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10)
-
-        adjRabbit = gtk.Adjustment(10, 1, 400, 1, 1, 0)
-        self.spbRabbit = gtk.SpinButton(adjustment=adjRabbit, climb_rate=1.0, digits=2)
-        table.attach(self.spbRabbit, 1, 2, 2, 3,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10)
-
-        lbFox = gtk.Label(_('Foxs'))
-        lbFox.set_attributes(label_attributes)
-        table.attach(lbFox, 0, 1, 3, 4,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10)
         
-        adjFox = gtk.Adjustment(10, 1, 400, 1, 1, 0)
-        self.spbFox = gtk.SpinButton(adjustment=adjFox, climb_rate=1.0, digits=2)
-        table.attach(self.spbFox, 1, 2, 3, 4,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10)
-
+        # En la primera pagina del notebook pongo los datos del experimento
+        icon_experiment = Icon(icon_name="experiment", icon_size=gtk.ICON_SIZE_LARGE_TOOLBAR)
+        self.createExperimentControls(notebook,icon_experiment,label_attributes)
+        
         # En la segunda pagina del notebook pongo los datos de los conejos
         icon_rabbit = Icon(icon_name="rabbit", icon_size=gtk.ICON_SIZE_LARGE_TOOLBAR)
         self.createAnimalControls(notebook,_('Rabbit features'), icon_rabbit,world.rabbit_data,label_attributes)
@@ -187,9 +158,7 @@ class EcomundoActivity(activity.Activity):
 
         # En la cuarta ponemos los parametros de clima
         icon_rain = Icon(icon_name="rain", icon_size=gtk.ICON_SIZE_LARGE_TOOLBAR)
-        table_clima = gtk.Table(rows=4, columns=2, homogeneous=False)
-        notebook.append_page(table_clima,icon_rain) 
-
+        self.createRainControls(notebook,icon_rain,label_attributes)
 
         print "antes de initWorld"
         initWorld()
@@ -231,6 +200,50 @@ class EcomundoActivity(activity.Activity):
         self.btPlay.props.sensitive = True;
 
         toolbox.set_current_toolbar(1)
+
+    def createRainControls(self,notebook,icon,label_attributes):
+        table = gtk.Table(rows=4, columns=2, homogeneous=False)
+        notebook.append_page(table,icon) 
+        lbTitle = gtk.Label(_('Rain'))
+        lbTitle.set_attributes(label_attributes)
+        table.attach(lbTitle, 0, 2, 0, 1,yoptions=gtk.SHRINK,xpadding=10) 
+        adjGreen = gtk.Adjustment(2.5, 0, 5, 1, 1, 0)
+        self.rain_scale = gtk.HScale(adjGreen)
+        table.attach(self.rain_scale, 0, 2, 1, 2,yoptions=gtk.SHRINK,xpadding=10) 
+
+    
+
+    def createExperimentControls(self,notebook,icon,label_attributes):
+        table = gtk.Table(rows=4, columns=2, homogeneous=False)
+        notebook.append_page(table,icon) 
+
+        lbTitle = gtk.Label(_('Initial quantities'))
+        lbTitle.set_attributes(label_attributes)
+        table.attach(lbTitle, 0, 2, 0, 1,yoptions=gtk.SHRINK,xpadding=10) 
+
+        lbGreen = gtk.Label(_('Green'))
+        lbGreen.set_attributes(label_attributes)
+        table.attach(lbGreen, 0, 1, 1, 2,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10) 
+
+        adjGreen = gtk.Adjustment(10, 1, 400, 1, 1, 0)
+        self.spbGreen = gtk.SpinButton(adjustment=adjGreen, climb_rate=1.0, digits=2)
+        table.attach(self.spbGreen, 1, 2, 1, 2,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10) 
+
+        lbRabbit = gtk.Label(_('Rabbits'))
+        lbRabbit.set_attributes(label_attributes)
+        table.attach(lbRabbit, 0, 1, 2, 3,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10)
+
+        adjRabbit = gtk.Adjustment(10, 1, 400, 1, 1, 0)
+        self.spbRabbit = gtk.SpinButton(adjustment=adjRabbit, climb_rate=1.0, digits=2)
+        table.attach(self.spbRabbit, 1, 2, 2, 3,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10)
+
+        lbFox = gtk.Label(_('Foxs'))
+        lbFox.set_attributes(label_attributes)
+        table.attach(lbFox, 0, 1, 3, 4,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10)
+        
+        adjFox = gtk.Adjustment(10, 1, 400, 1, 1, 0)
+        self.spbFox = gtk.SpinButton(adjustment=adjFox, climb_rate=1.0, digits=2)
+        table.attach(self.spbFox, 1, 2, 3, 4,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10)
 
 
     def createAnimalControls(self,notebook,title, icon,animalData,label_attributes):
@@ -320,9 +333,13 @@ class EcomundoActivity(activity.Activity):
 
     def onBtNewClicked(self,widget):
         initWorld()
+              
         world.initialGreen = self.spbGreen.get_value_as_int()
         world.initialRabbits = self.spbRabbit.get_value_as_int()
         world.initialFoxs = self.spbFox.get_value_as_int()
+
+
+        world.rain_value = self.rain_scale.get_value() / 4
         initGreen()
         initAnimals()
         # Despues de esto hay que recargar la pantalla

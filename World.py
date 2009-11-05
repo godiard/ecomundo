@@ -35,6 +35,7 @@ class World:
     playState = False
     state = []
     animals = []
+    rain_value = 1
     
     rabbit_data = RabbitData()
     fox_data = FoxData()
