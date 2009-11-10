@@ -7,6 +7,30 @@ import World
 
 print "Init aimals"
 
+EVENT_DEATH = 10
+
+class WorldEvent:
+
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)),"images")
+    imageSkull = cairo.ImageSurface.create_from_png (os.path.join(path,"skull.png"))
+
+    def __init__ (self,x,y,event):
+        self.x = x
+        self.y = y
+        self.event = event;        
+
+    def draw(self,ctx):
+        x1 = World.MARGEN+(self.x*World.SIZE_TILE)
+        y1 = World.MARGEN +(self.y*World.SIZE_TILE)
+        ctx.move_to(x1,y1)
+        ctx.translate(x1,y1)
+        ctx.rectangle(0,0,World.SIZE_TILE,World.SIZE_TILE);
+        ctx.set_source_rgb(146.0/256.0,98.0/256.0,46.0/256.0)    
+        if (self.event == EVENT_DEATH):
+            ctx.set_source_surface(WorldEvent.imageSkull,1,1)
+            ctx.fill()
+
+
 def getRandomDirection():
     return 1+int(random.random()*7)        
 

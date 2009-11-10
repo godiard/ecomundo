@@ -73,7 +73,12 @@ def drawStateWorld(ctx):
         ctx.save()
         animal.draw(ctx)
         ctx.restore()
-    #for n in range(len(world.events)):
+    for n in range(len(world.events)):
+        event = world.events[n]
+        ctx.save()
+        event.draw(ctx)
+        ctx.restore()
+    world.events = []        
     
     
 
@@ -108,7 +113,7 @@ def updateState(drawingarea):
             animal = world.animals[n]
             animal.move(world)
             if (not animal.checkLive()):
-                world.events.append(World.WorldEvent(animal.posX,animal.posY,World.EVENT_DEATH))
+                world.events.append(Animals.WorldEvent(animal.posX,animal.posY,Animals.EVENT_DEATH))
                 cantAnimals = len(world.animals)
                 world.animals[n] = cantAnimals
                 world.animals.remove(cantAnimals)

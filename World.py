@@ -9,8 +9,6 @@ print "*** calculo SIZE "
 SIZE_TILE = int((SIZE_WORLD - MARGEN * 2) / CANT_TILES)
 print "Size tile:", SIZE_TILE
 
-EVENT_DEATH = 10
-
 class RabbitData:
     edadMaxima = 100
     madurezSexual = 20
@@ -19,12 +17,6 @@ class RabbitData:
     minFrecuenciaAlimentacion = 10
     maxFrecuenciaAlimentacion = 1
     maxNumeroCrias = 5
-        
-class WorldEvent:
-    def __init__ (self,x,y,event):
-        self.x = x
-        self.y = y
-        self.event = event;
         
 		
 class FoxData:
