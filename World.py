@@ -2,12 +2,14 @@
 ### GPL License - http://www.gnu.org/copyleft/gpl.html
 
 # inicializacion
-MARGEN = 10
+MARGEN = 0
 SIZE_WORLD = 800			 # 700
 CANT_TILES =  25 			 #  30
 print "*** calculo SIZE "
 SIZE_TILE = int((SIZE_WORLD - MARGEN * 2) / CANT_TILES)
 print "Size tile:", SIZE_TILE
+
+EVENT_DEATH = 10
 
 class RabbitData:
     edadMaxima = 100
@@ -17,6 +19,12 @@ class RabbitData:
     minFrecuenciaAlimentacion = 10
     maxFrecuenciaAlimentacion = 1
     maxNumeroCrias = 5
+        
+class WorldEvent:
+    def __init__ (self,x,y,event):
+        self.x = x
+        self.y = y
+        self.event = event;
         
 		
 class FoxData:
@@ -34,6 +42,7 @@ class World:
     initialFoxs = 10
     playState = False
     state = []
+    events = []
     animals = []
     rain_value = 1
     

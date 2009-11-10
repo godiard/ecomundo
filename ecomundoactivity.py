@@ -7,7 +7,6 @@
 import gobject, gtk , cairo
 import math, random
 import os
-import hippo
 
 import pango
 import logging
@@ -45,6 +44,7 @@ def drawGrid(ctx):
 def initWorld(): 
     world.state = []
     world.animals = []
+    world.events = []
     for n in range(0,World.CANT_TILES):
         world.state.append([])
         for p in range(0,World.CANT_TILES):
@@ -73,6 +73,9 @@ def drawStateWorld(ctx):
         ctx.save()
         animal.draw(ctx)
         ctx.restore()
+    #for n in range(len(world.events)):
+    
+    
 
 def initGreen():
     for n in range(world.initialGreen):
@@ -105,6 +108,7 @@ def updateState(drawingarea):
             animal = world.animals[n]
             animal.move(world)
             if (not animal.checkLive()):
+                world.events.append(World.WorldEvent(animal.posX,animal.posY,World.EVENT_DEATH))
                 cantAnimals = len(world.animals)
                 world.animals[n] = cantAnimals
                 world.animals.remove(cantAnimals)
@@ -132,16 +136,21 @@ class EcomundoActivity(activity.Activity):
         self.set_canvas(hBox)
         
         self.drawingarea1 = gtk.DrawingArea()
-        self.drawingarea1.set_size_request(World.SIZE_WORLD+(2*World.MARGEN),World.SIZE_WORLD+(2*World.MARGEN))
+        self.drawingarea1.set_size_request(World.SIZE_WORLD,World.SIZE_WORLD)
         self.drawingarea1.show()
 
-        hBox.pack_start(self.drawingarea1, False, True, 5)
+        hBox.pack_start(self.drawingarea1, False, False, 0)
         
         notebook = gtk.Notebook()
-        hBox.pack_start(notebook, False, False, 5)
+        
+        print hBox.get_screen().get_width()
+        #
+        
+        notebook.set_size_request(hBox.get_screen().get_width() - World.SIZE_WORLD,-1)
+        hBox.pack_start(notebook, False, False, 0)
 
         label_attributes = pango.AttrList()
-        label_attributes.insert(pango.AttrSize(14000, 0, -1))
+        label_attributes.insert(pango.AttrSize(10000, 0, -1))
         label_attributes.insert(pango.AttrForeground(65535, 65535, 65535, 0, -1))
         
         # En la primera pagina del notebook pongo los datos del experimento
@@ -273,7 +282,7 @@ class EcomundoActivity(activity.Activity):
         table.attach(animalData.spbSexMadurity, 1, 2, 2, 3,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10) 
 
         #frecuenciaSexual = 10
-        sexFrequency = gtk.Label(_('Sexual Frequency'))
+        sexFrequency = gtk.Label(_('Sexual Freq'))
         sexFrequency.set_attributes(label_attributes)
         table.attach(sexFrequency, 0, 1, 3, 4,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10) 
 
@@ -284,7 +293,7 @@ class EcomundoActivity(activity.Activity):
         #nivelCadenaAlimenticia = 1
         
         #minFrecuenciaAlimentacion = 10
-        minFeedFrequency = gtk.Label(_('Min Feeding Frequency'))
+        minFeedFrequency = gtk.Label(_('Min Feed Freq'))
         minFeedFrequency.set_attributes(label_attributes)
         table.attach(minFeedFrequency, 0, 1, 4, 5,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10) 
 
@@ -293,7 +302,7 @@ class EcomundoActivity(activity.Activity):
         table.attach(animalData.spbMinFeedFrequency, 1, 2, 4, 5,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,ypadding=10)       
         
         #maxFrecuenciaAlimentacion = 1
-        maxFeedFrequency = gtk.Label(_('Max Feeding Frequency'))
+        maxFeedFrequency = gtk.Label(_('Max Feed Freq'))
         maxFeedFrequency.set_attributes(label_attributes)
         table.attach(maxFeedFrequency, 0, 1, 5, 6,yoptions=gtk.SHRINK,xoptions=gtk.SHRINK,xpadding=10) 
 
