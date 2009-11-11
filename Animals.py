@@ -7,12 +7,14 @@ import World
 
 print "Init aimals"
 
-EVENT_DEATH = 10
+EVENT_DEATH = -1
+EVENT_LOVE  = -2
 
 class WorldEvent:
 
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)),"images")
     imageSkull = cairo.ImageSurface.create_from_png (os.path.join(path,"skull.png"))
+    imageHeart = cairo.ImageSurface.create_from_png (os.path.join(path,"heart.png"))
 
     def __init__ (self,x,y,event):
         self.x = x
@@ -28,7 +30,9 @@ class WorldEvent:
         ctx.set_source_rgb(146.0/256.0,98.0/256.0,46.0/256.0)    
         if (self.event == EVENT_DEATH):
             ctx.set_source_surface(WorldEvent.imageSkull,1,1)
-            ctx.fill()
+        if (self.event == EVENT_LOVE):
+            ctx.set_source_surface(WorldEvent.imageHeart,1,1)
+        ctx.fill()
 
 
 def getRandomDirection():
@@ -233,6 +237,7 @@ class Rabbit(AbstractAnimal):
                         ((nearAnimal.edad - nearAnimal.ultimaActSexual) > self.frecuenciaSexual)):
                         # born rabbits
                         self.ultimaActSexual = self.edad
+                        world.events.append(WorldEvent(self.posX,self.posY,EVENT_LOVE))
                         cantCrias = int(random.random()*self.maxNumeroCrias)
                         for n in range(cantCrias):
                             child = Rabbit(self.posX,self.posY,self._world)
@@ -357,6 +362,7 @@ class Fox(AbstractAnimal):
                         ((nearAnimal.edad - nearAnimal.ultimaActSexual) > self.frecuenciaSexual) ):
                         #print "IUPI!!!!"
                         # born foxs
+                        world.events.append(WorldEvent(self.posX,self.posY,EVENT_LOVE))
                         self.ultimaActSexual = self.edad
                         cantCrias = int(random.random()*self.maxNumeroCrias)
                         for n in range(cantCrias):
