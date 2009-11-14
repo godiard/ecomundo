@@ -241,6 +241,7 @@ class Rabbit(AbstractAnimal):
                         cantCrias = int(random.random()*self.maxNumeroCrias)
                         for n in range(cantCrias):
                             child = Rabbit(self.posX,self.posY,self._world)
+                            child.ultimaDireccion =  getNextDirection(self.ultimaDireccion)
                             world.animals.append(child)
                             print "Nace conejo"
                         # salgo del while
@@ -367,6 +368,7 @@ class Fox(AbstractAnimal):
                         cantCrias = int(random.random()*self.maxNumeroCrias)
                         for n in range(cantCrias):
                             child = Fox(self.posX,self.posY,self._world)
+                            child.ultimaDireccion =  getNextDirection(self.ultimaDireccion)
                             world.animals.append(child)
                             print "Nace zorro"
                         # salgo del while

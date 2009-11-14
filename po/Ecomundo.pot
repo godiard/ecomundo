@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-28 20:24-0300\n"
+"POT-Creation-Date: 2009-11-14 00:34-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,22 +17,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: activity/activity.info:2
-#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:130
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:193
 msgid "Ecomundo"
 msgstr ""
 
-#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:173
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:167
+msgid "Rabbit features"
+msgstr ""
+
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:171
+msgid "Fox features"
+msgstr ""
+
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:221
+msgid "Rain"
+msgstr ""
+
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:234
 msgid "Initial quantities"
 msgstr ""
 
-#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:178
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:238
 msgid "Green"
 msgstr ""
 
-#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:187
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:246
 msgid "Rabbits"
 msgstr ""
 
-#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:196
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:254
 msgid "Foxs"
+msgstr ""
+
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:272
+msgid "Max Age"
+msgstr ""
+
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:281
+msgid "Sexual Maturity"
+msgstr ""
+
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:290
+msgid "Sexual Freq"
+msgstr ""
+
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:301
+msgid "Min Feed Freq"
+msgstr ""
+
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:310
+msgid "Max Feed Freq"
+msgstr ""
+
+#: /home/gonzalo/Activities/Ecomundo.activity/ecomundoactivity.py:320
+msgid "Max Children"
 msgstr ""
