@@ -155,7 +155,7 @@ class Rabbit(AbstractAnimal):
         self._world = world
         
         self.orden = 0
-        self.edad = world.rabbit_data.madurezSexual
+        self.edad = 1
         self.sexo = "F"
         if (random.random() > 0.5):
             self.sexo = "M"

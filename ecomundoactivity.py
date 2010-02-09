@@ -94,12 +94,16 @@ def initAnimals():
         y = int(random.random()*(World.CANT_TILES-1))
         #print "Init Rabbit",x,y
         animal = Animals.Rabbit(x,y,world)
+        animal.edad = world.rabbit_data.madurezSexual
+        animal.ultimaAlimentacion = animal.edad
         world.animals.append(animal)
     for n in range(world.initialFoxs):
         x = int(random.random()*(World.CANT_TILES-1))
         y = int(random.random()*(World.CANT_TILES-1))
         #print "Init Fox",x,y
         animal = Animals.Fox(x,y,world)
+        animal.edad = world.fox_data.madurezSexual
+        animal.ultimaAlimentacion = animal.edad
         world.animals.append(animal)
                                         
 
